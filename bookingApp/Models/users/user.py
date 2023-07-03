@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     LastName = models.TextField(blank=True, null=True)
     CI = models.TextField(blank=True,null=True)
     UserName = models.TextField(blank=True, null=True)
-    Gener = models.TextField(blank=True, null=True)
+    Gender = models.TextField(blank=True, null=True)
     Email = models.EmailField(unique=True)
     PhoneNumber = models.TextField(blank=True, null=True)
     DOB = models.TextField(blank=True, null=True)

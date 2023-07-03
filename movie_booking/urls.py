@@ -27,8 +27,12 @@ from movie_booking.Views.Users.Users import User
 from movie_booking.Views.appData import addData
 from movie_booking.Views.Days.daysVisitors import DaysAPIViewVisitor
 from movie_booking.Views.Seats.Seats import SeatsApiView
+from movie_booking.Views.Booking.Bookings import BookingAPI
+from movie_booking.Views.ForgetPassword.ForgetPassword import ForgetPassAPI
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+
     path('migrate',addData),
     path('login/', Login.Login),
     path('token/verify',TokenVerify.as_view() ),
@@ -40,5 +44,9 @@ urlpatterns = [
     path('getMovieDetails/<int:pk>',GetDetails.as_view()),
     path('getTimes',DaysAPIViewVisitor.as_view()),
     path('getSeats/<int:pk>',SeatsApiView.as_view()),
-    path('getSeats',SeatsApiView.as_view())
+    path('getSeats',SeatsApiView.as_view()),
+    path('booking',BookingAPI.as_view()),
+    path('booking/<int:pk>',BookingAPI.as_view()),
+    path('forget',ForgetPassAPI.as_view())
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

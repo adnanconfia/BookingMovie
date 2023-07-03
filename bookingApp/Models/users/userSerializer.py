@@ -10,7 +10,7 @@ class UserSerializer(serializers.Serializer):
     DOB = serializers.CharField()
     RoleType = serializers.IntegerField()
     UserName = serializers.CharField()
-    Gener = serializers.CharField()
+    Gender = serializers.CharField()
     RoleName = serializers.CharField()
     Email = serializers.EmailField()
     IsActive = serializers.BooleanField()

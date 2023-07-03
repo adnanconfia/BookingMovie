@@ -40,7 +40,7 @@ class User(CreateAPIView):
                         CI =""
                         UserName = ""
                         DOB = ""
-                        Gener = ""
+                        Gender = ""
                         RoleType=1
                         RoleName="User"
                         PhoneNumber = ""
@@ -54,8 +54,8 @@ class User(CreateAPIView):
                                 PhoneNumber = dic['PhoneNumber']
                         if('CI' in dic.keys()):
                             CI = dic['CI']
-                        if('Gener' in dic.keys()):
-                            Gener = dic['Gener']
+                        if('Gender' in dic.keys()):
+                            Gender = dic['Gender']
                         user = UserModel(Email=dic['Email'],
                                          FirstName=FirstName,
                                          LastName = LastName,
@@ -63,7 +63,7 @@ class User(CreateAPIView):
                                          DOB = DOB,
                                          UserName = UserName,
                                          PhoneNumber = PhoneNumber,
-                                         Gener = Gener,
+                                         Gender = Gender,
                                          RoleType=RoleType,
                                          RoleName=RoleName,
                                          IsDeleted=False,
@@ -128,9 +128,9 @@ class User(CreateAPIView):
                     if ('DOB' in dic.keys()):
                         DOB = parse_date(dic['DOB'])
                         user.DOB = DOB
-                    if ('Gener' in dic.keys()):
-                        Gener = dic['Gener']
-                        user.Gener = Gener
+                    if ('Gender' in dic.keys()):
+                        Gender = dic['Gender']
+                        user.Gender = Gender
                     if('IsActive' in dic.keys()):
                         user.IsActive = dic['IsActive']
                     if("IsDeleted" in dic.keys()):
