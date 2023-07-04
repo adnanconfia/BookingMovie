@@ -193,3 +193,11 @@ REST_USE_JWT = True
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR,"static/")
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = "contact@confiatech.com"
+EMAIL_HOST_PASSWORD = "Confia@123"
+EMAIL_HOST ='mail.confiatech.com'
+EMAIL_PORT =587
+EMAIL_USE_TLS=True

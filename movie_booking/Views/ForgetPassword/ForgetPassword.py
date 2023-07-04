@@ -3,54 +3,55 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 import json
 from django.http import JsonResponse
 from rest_framework import status
-from movie_booking.Helpers.User.User import getUserByMail
+
 import random
 from bookingApp.Models.users.user import User
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from django.core.mail import EmailMessage
-from django.core import mail as _mail
+from movie_booking import settings
+from bookingApp.Models.users.userSerializer import UserSerializer
 
 
 class ForgetPassAPI(RetrieveUpdateAPIView):
     permission_classes = [AllowAny,]
 
-    def get(self,request):
+    def post(self,request):
         try:
             d = request.data
             d = json.dumps(d)
             dic = json.loads(d)
-            data = []
+            data = {}
             userDetails = {}
             if 'email' in dic.keys():
                 user = User.objects.filter(IsDeleted = False, Email=dic['email'])
 
                 if user is not None:
                     for u in user:
-                        userDetails['email'] = u.Email
-                        userDetails['userName'] = str(u.FirstName)+" "+str(u.LastName)
+                        data['user'] =UserSerializer(u).data
                     otp = random.randint(1000,9999)
-                    userDetails['otp'] = otp
+                    data['otp']=otp
+                    # data['UserDetails']=userDetails
                     subject = ""
                     body = "Hello,Your OTP is "+str(otp)+" Thank You"
-                    sender = "contact@confiatech.com"
-                    recipients = ["hr@confiatech.com"]
-                    password = "Confia@123"
+                    sender = settings.EMAIL_HOST_USER
+                    recipients = dic['email']
+                    password = settings.EMAIL_HOST_PASSWORD
 
                     send_email(subject,body,sender,recipients,password,otp)
-                    return JsonResponse({"data": userDetails,"status":status.HTTP_200_OK})
+                    return JsonResponse({"data": data,"message":"success","status":status.HTTP_200_OK})
                 else:
-                    return JsonResponse({"data":"Email not found","status":status.HTTP_404_NOT_FOUND})
+                    return JsonResponse({"data":"","message":"Email not found","status":status.HTTP_404_NOT_FOUND})
             else:
-                return JsonResponse({"data":"Email is required","status": status.HTTP_400_BAD_REQUEST})
+                return JsonResponse({"data":"","message":"Email is required","status": status.HTTP_400_BAD_REQUEST})
         except Exception as ex:
-            return JsonResponse({"data":ex,"status":status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message":ex,"status":status.HTTP_500_INTERNAL_SERVER_ERROR})
+
 
 
 
 def send_email(subject,body, sender, recipients, password,otp):
-    assert isinstance(recipients,list)
+    # assert isinstance(recipients,list)
     msg=MIMEMultipart('alternative')
     msg['From']=sender
     msg['To']=", ".join(recipients)
@@ -61,7 +62,7 @@ def send_email(subject,body, sender, recipients, password,otp):
     html_part = MIMEText(f"<p>Here is your password reset OTP</p><h1>{otp}</h1>", 'html')
     msg.attach(html_part)
     msg_str=msg.as_string()
-    server=smtplib.SMTP(host='mail.confiatech.com',port=587)
+    server=smtplib.SMTP(host=settings.EMAIL_HOST,port=settings.EMAIL_PORT)
     server.ehlo()
     server.starttls()
     server.login(sender,password)

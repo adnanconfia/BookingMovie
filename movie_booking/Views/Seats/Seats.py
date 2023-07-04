@@ -46,9 +46,9 @@ class SeatsApiView(RetrieveUpdateAPIView):
 
             data['seats'] = seat
 
-            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': data,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "","message":ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def post(self,request):
         try:
@@ -168,8 +168,8 @@ class SeatsApiView(RetrieveUpdateAPIView):
                     if seat_str == 'seat50':
                         query.seat50 = seat_status
                     query.save()
-                return JsonResponse({'data': "Seat booked successfully", 'status': status.HTTP_200_OK})
-            return JsonResponse({'data': "Seat not reserved", 'status': status.HTTP_400_BAD_REQUEST})
+                return JsonResponse({'data':"", "message":"Seat booked successfully", 'status': status.HTTP_200_OK})
+            return JsonResponse({'data':"","message": "Some thing wrong", 'status': status.HTTP_400_BAD_REQUEST})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "","message":ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 

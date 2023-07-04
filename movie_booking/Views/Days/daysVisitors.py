@@ -24,6 +24,6 @@ class DaysAPIViewVisitor(RetrieveUpdateAPIView):
             if record is not None:
                 for r in record:
                     times.append(r.time())
-            return JsonResponse({'data': times, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': times,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data':"","message": ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})

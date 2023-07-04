@@ -24,9 +24,9 @@ class BookingAPI(RetrieveUpdateAPIView):
             datetime = dic['datetime']
             booking = Booking(user_Id=user, movie_Id=movie, datatime=datetime)
             booking.save()
-            return JsonResponse({"data": "Booking details save successfully", "status": status.HTTP_200_OK})
+            return JsonResponse({"data":"","message": "Booking details save successfully", "status": status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({"data": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def get(self,request,pk):
         try:
@@ -42,6 +42,6 @@ class BookingAPI(RetrieveUpdateAPIView):
                 booking_details['thumbnail'] = thumbnail
                 booking_details['datetime'] = r.datetime
             data.append(booking_details)
-            return JsonResponse({"data": data, "status": status.HTTP_200_OK})
+            return JsonResponse({"data": data,"message":"success", "status": status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({"data": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})

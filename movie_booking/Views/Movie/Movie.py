@@ -45,9 +45,9 @@ class MovieAPIView(RetrieveUpdateAPIView):
             movie = Movie(movie_name=d['movie_name'], category=category,category_Id=category_Id, duration=d['duration'],
                           description=d['description'], genre=d['genre'], thumbnail=thumbnail)
             movie.save()
-            return JsonResponse({'data': 'Movie added successfully', 'status': status.HTTP_201_CREATED})
+            return JsonResponse({'data':"","message": 'Movie added successfully', 'status': status.HTTP_201_CREATED})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "","message":str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def put(self, request, pk, *args, **kwargs):
         try:
@@ -58,7 +58,7 @@ class MovieAPIView(RetrieveUpdateAPIView):
             movie = Movie.objects.get(Id=pk)
             if movie is None:
                 return JsonResponse(
-                    {"data": "No data found having Id: " + str(d['Id']), "status": status.HTTP_404_NOT_FOUND})
+                    {"data":"","message": "No data found having Id: " + str(d['Id']), "status": status.HTTP_404_NOT_FOUND})
             else:
                 thumbnail = ''
                 if d['thumbnail'] != '':
@@ -97,9 +97,9 @@ class MovieAPIView(RetrieveUpdateAPIView):
                     if d['thumbnail'] != '':
                         movie.thumbnail = thumbnail
                 movie.save()
-                return JsonResponse({'data': 'Record updated successfully', 'status': status.HTTP_200_OK})
+                return JsonResponse({'data':"","message": 'Record updated successfully', 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "","message":ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def get(self, request, *args, **kwargs):
         try:
@@ -121,6 +121,6 @@ class MovieAPIView(RetrieveUpdateAPIView):
                         'genre': r.genre,
                         'thumbnail': thumbnail
                     })
-            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': data,'message':"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "",'message':str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})

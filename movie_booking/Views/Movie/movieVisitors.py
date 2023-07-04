@@ -60,9 +60,9 @@ class GetMovieAllForVisitor(RetrieveUpdateAPIView):
                 data['presale'] = presale
                 data['premieres'] = premieres
                 data['billboard'] = billboard
-            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': data,'message':'success', 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "",'message':str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 
 
 class GetDetails(RetrieveAPIView):
@@ -101,7 +101,7 @@ class GetDetails(RetrieveAPIView):
                 dates.append(day['date_only'])
             data['dates'] = dates
             print(data)
-            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': data,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({'data': "","message":str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 

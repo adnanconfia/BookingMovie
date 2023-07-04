@@ -24,7 +24,7 @@ class User(CreateAPIView):
                 if 'Email' in dic.keys():
                     if UserExistsByEmail(dic['Email']):
                         return Response(
-                            {"data": "user with email: '"+ dic['Email']+ "' already exists", "status": status.HTTP_400_BAD_REQUEST},
+                            {"data":"","message": "user with email: '"+ dic['Email']+ "' already exists", "status": status.HTTP_400_BAD_REQUEST},
                             status=status.HTTP_400_BAD_REQUEST)
                     else:
                         password = ""
@@ -32,7 +32,7 @@ class User(CreateAPIView):
                             password = dic['Password']
                         else:
                             return Response(
-                                {"data": "Password is required",
+                                {"data":"","message": "Password is required",
                                  "status": status.HTTP_400_BAD_REQUEST},
                                 status=status.HTTP_400_BAD_REQUEST)
                         FirstName=""
@@ -87,18 +87,18 @@ class User(CreateAPIView):
                         jwt_token = jwt.encode(payload, secret_key, algorithm='HS256')
                         print(jwt_token)
                         return Response(
-                            {"data": data, "status": status.HTTP_200_OK,"token":jwt_token},
+                            {"data": data,"message":"success", "status": status.HTTP_200_OK,"token":jwt_token},
                             status=status.HTTP_200_OK)
 
                 else:
                     return Response(
-                        {"data": "Email is required", "status": status.HTTP_400_BAD_REQUEST},
+                        {"data":"","message": "Email is required", "status": status.HTTP_400_BAD_REQUEST},
                         status=status.HTTP_400_BAD_REQUEST)
             else:
                 user = getUserById(id)
                 if (user is None):
                     return Response(
-                        {"data": "User doesn't exists",
+                        {"data":"","message": "User doesn't exists",
                          "status": status.HTTP_404_NOT_FOUND},
                         status=status.HTTP_404_NOT_FOUND)
                 else:
@@ -106,7 +106,7 @@ class User(CreateAPIView):
                         checkUser = getUserByMail(dic['Email'])
                         if (checkUser is not None):
                             if checkUser.Id != id:
-                                return Response({"data": "User with email : '" + str(dic['Email']) + "' already exists",
+                                return Response({"data":"","message": "User with email : '" + str(dic['Email']) + "' already exists",
                                                  "status": status.HTTP_226_IM_USED}, status=status.HTTP_226_IM_USED)
                         else:
                             user.Email = dic['Email']
@@ -142,8 +142,8 @@ class User(CreateAPIView):
                     user.save()
                     data = UserSerializer(user).data
 
-                    return Response({"data": data, "status": status.HTTP_200_OK},
+                    return Response({"data": data,"message":"User created successfully", "status": status.HTTP_200_OK},
                                     status=status.HTTP_200_OK)
         except Exception as ex:
-            return Response({"data": str(ex), "status": status.HTTP_500_INTERNAL_SERVER_ERROR},
+            return Response({"data":"","message": str(ex), "status": status.HTTP_500_INTERNAL_SERVER_ERROR},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)

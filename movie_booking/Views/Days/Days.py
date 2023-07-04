@@ -22,9 +22,9 @@ class DaysAPIView(RetrieveUpdateAPIView):
             record = Days.objects.all().last()
             seats = Seats(days_Id=record)
             seats.save()
-            return JsonResponse({'data': 'Record added successfully', 'status': status.HTTP_201_CREATED})
+            return JsonResponse({'data':"","message": 'Record added successfully', 'status': status.HTTP_201_CREATED})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def put(self, request, pk, *args, **kwargs):
         try:
@@ -35,7 +35,7 @@ class DaysAPIView(RetrieveUpdateAPIView):
             record = Days.objects.get(Id=pk)
             if record is None:
                 return JsonResponse(
-                    {"data": "No data found having Id: " + str(d['Id']), "status": status.HTTP_404_NOT_FOUND})
+                    {"data":"","message": "No data found having Id: " + str(d['Id']), "status": status.HTTP_404_NOT_FOUND})
             else:
                 if 'movie_Id' in d.keys():
                     record.movie_Id = d['movie_Id']
@@ -44,16 +44,16 @@ class DaysAPIView(RetrieveUpdateAPIView):
                 if 'day' in d.keys():
                     record.day = d['day']
                 record.save()
-                return JsonResponse({'data': 'Record updated successfully', 'status': status.HTTP_200_OK})
+                return JsonResponse({'data':"","message": 'Record updated successfully', 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
 
     def get(self, request, *args, **kwargs):
         try:
             data = []
             row = Days.objects.filter(isDeleted=False).order_by('-creation_date')
             if row is None:
-                return JsonResponse({'data': data, 'status': status.HTTP_404_NOT_FOUND})
+                return JsonResponse({'data': data,"message":"No record found", 'status': status.HTTP_404_NOT_FOUND})
             else:
                 for r in row:
                     data.append({
@@ -62,6 +62,6 @@ class DaysAPIView(RetrieveUpdateAPIView):
                         'date': r.date,
                         'day': r.day
                     })
-            return JsonResponse({'data': data, 'status': status.HTTP_200_OK})
+            return JsonResponse({'data': data,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
-            return JsonResponse({'data': ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+            return JsonResponse({"data":"","message": ex, "status": status.HTTP_500_INTERNAL_SERVER_ERROR})
