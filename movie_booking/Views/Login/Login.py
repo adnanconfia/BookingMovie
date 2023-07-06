@@ -61,7 +61,7 @@ def Login(request):
                 user_details["user"]["Token"] = payload['access']
                 return Response({"data": user_details, "message": "Login successfully", "status": status.HTTP_200_OK})
             except Exception as e:
-                return Response({"data":"Error","message":str(e), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({"data":"","message":str(e), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             res = 'can not authenticate with the given credentials or the account has been deactivated'
             return Response({"data":"","message":str(res), "status": status.HTTP_403_FORBIDDEN}, status=status.HTTP_403_FORBIDDEN)
@@ -69,7 +69,7 @@ def Login(request):
 
     except KeyError:
         res = 'please provide a email and a password'
-        return Response({"data": str(res), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"data":"" ,"message":str(res), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenVerify(TokenViewBase):
@@ -80,3 +80,35 @@ class TokenVerify(TokenViewBase):
         # authenitcate() verifies and decode the token
         # if token is invalid, it raises an exception and returns 401
         return verify_token(request)
+
+
+
+
+class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    # Allow only authenticated users to access this url
+    # permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        # serializer to handle turning our `User` object into something that
+        # can be JSONified and sent to the client.
+        # print(request.user)
+        user = request.user
+        serializer = self.serializer_class(user)
+        data = serializer.data
+
+        # print(serializer.data)
+        return Response(data, status=status.HTTP_200_OK)
+
+    def put(self, request, *args, **kwargs):
+
+        serializer_data = request.data.get('user', {})
+
+        serializer = UserSerializer(
+            request.user, data=serializer_data, partial=True
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

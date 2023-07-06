@@ -4,7 +4,7 @@ from urllib.parse import urlparse, parse_qs
 from django.core.files.base import ContentFile
 from django.http import JsonResponse
 from rest_framework import status
-from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.generics import RetrieveUpdateAPIView,RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from bookingApp.Models.movie import Movie
 from movie_booking.Helpers.getImageHelper import getImageFile
@@ -49,13 +49,13 @@ class MovieAPIView(RetrieveUpdateAPIView):
         except Exception as ex:
             return JsonResponse({'data': "","message":str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
 
-    def put(self, request, pk, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         try:
             dic = request.data
             dic = json.dumps(dic)
             d = json.loads(dic)
-            pk = str(pk).replace('"', '')
-            movie = Movie.objects.get(Id=pk)
+
+            movie = Movie.objects.get(Id=d['Id'])
             if movie is None:
                 return JsonResponse(
                     {"data":"","message": "No data found having Id: " + str(d['Id']), "status": status.HTTP_404_NOT_FOUND})
@@ -121,6 +121,30 @@ class MovieAPIView(RetrieveUpdateAPIView):
                         'genre': r.genre,
                         'thumbnail': thumbnail
                     })
+            return JsonResponse({'data': data,'message':"success", 'status': status.HTTP_200_OK})
+        except Exception as ex:
+            return JsonResponse({'data': "",'message':str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})
+
+class GetMovieById(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated,]
+    def get(self,request,pk,*args, **kwargs):
+        try:
+            pk = str(pk).replace('"', '')
+            r = Movie.objects.get(Id = pk)
+            data = []
+            thumbnail = ''
+            if r.thumbnail.name != '':
+                thumbnail = getImageFile(r.thumbnail.name)
+            data.append({
+                'Id': r.Id,
+                'movie_name': r.movie_name,
+                'category': r.category,
+                'category_Id':r.category_Id,
+                'duration': r.duration,
+                'description': r.description,
+                'genre': r.genre,
+                'thumbnail': thumbnail
+            })
             return JsonResponse({'data': data,'message':"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
             return JsonResponse({'data': "",'message':str(ex), 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})

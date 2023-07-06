@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d204d63e-61a4-452d-96d7-542cda6fe892" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/movie_booking/Views/ForgetPassword/UpdatePassword.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_booking/Views/Days/Days.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Days/Days.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_booking/Views/Login/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Login/Login.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_booking/Views/Movie/Movie.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Movie/Movie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Movie/movieVisitors.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Movie/movieVisitors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,21 +70,5 @@
       <updated>1688360000791</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

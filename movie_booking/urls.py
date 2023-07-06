@@ -19,10 +19,10 @@ from django.urls import path
 
 from movie_booking.Views.Login import Login
 from movie_booking.Views.Login.Login import TokenVerify
-from movie_booking.Views.Movie.Movie import MovieAPIView
+from movie_booking.Views.Movie.Movie import MovieAPIView,GetMovieById
 from movie_booking import settings
 from movie_booking.Views.Movie.movieVisitors import GetMovieAllForVisitor,GetDetails
-from movie_booking.Views.Days.Days import DaysAPIView
+from movie_booking.Views.Days.Days import DaysAPIView,GetDaysById
 from movie_booking.Views.Users.Users import User
 from movie_booking.Views.appData import addData
 from movie_booking.Views.Days.daysVisitors import DaysAPIViewVisitor
@@ -34,12 +34,13 @@ from movie_booking.Views.ForgetPassword.UpdatePassword import UpdatePassAPI
 urlpatterns = [
 
     path('migrate',addData),
-    path('login/', Login.Login),
-    path('token/verify',TokenVerify.as_view() ),
+    path('verify/token', Login.Login),
+    path('login/',Login.UserRetrieveUpdateAPIView.as_view()),
     path('user/create', User.as_view()),
     path('movie',MovieAPIView.as_view()),
     path('datetime',DaysAPIView.as_view()),
-    path('movie/<int:pk>',MovieAPIView.as_view()),
+    path('getdatebyid/<int:pk>',GetDaysById.as_view()),
+    path('movie/<int:pk>',GetMovieById.as_view()),
     path('movieVisitors',GetMovieAllForVisitor.as_view()),
     path('getMovieDetails/<int:pk>',GetDetails.as_view()),
     path('getTimes',DaysAPIViewVisitor.as_view()),
