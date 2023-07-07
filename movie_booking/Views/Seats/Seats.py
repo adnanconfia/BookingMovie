@@ -55,9 +55,9 @@ class SeatsApiView(RetrieveUpdateAPIView):
             dic = request.data
             dic = json.dumps(dic)
             d = json.loads(dic)
-            print(d['seats'])
-            print(d['seats'][0])
-            print(d['seats'][1])
+            # print(d['seats'])
+            # print(d['seats'][0])
+            # print(d['seats'][1])
             Id = d['Id']
             if 'seats' in d.keys():
                 query = Seats.objects.get(Id = Id)
