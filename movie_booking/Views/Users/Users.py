@@ -50,7 +50,7 @@ class User(CreateAPIView):
                             LastName = dic['LastName']
                         if('UserName' in dic.keys()):
                             UserName = dic['UserName']
-                        if('UserName' in dic.keys()):
+                        if('PhoneNumber' in dic.keys()):
                                 PhoneNumber = dic['PhoneNumber']
                         if('CI' in dic.keys()):
                             CI = dic['CI']

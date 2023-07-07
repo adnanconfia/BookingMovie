@@ -23,6 +23,7 @@ class DaysAPIViewVisitor(RetrieveUpdateAPIView):
             record = Days.objects.filter(movie_Id = m.Id, datetime__date=date).values_list('datetime', flat=True)
             if record is not None:
                 for r in record:
+
                     times.append(r.time())
             return JsonResponse({'data': times,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
