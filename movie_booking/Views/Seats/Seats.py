@@ -1,5 +1,6 @@
 import json
-
+from movie_booking.Helpers.User.User import getUserById
+from movie_booking.Helpers.movieHelper import GetMovieById
 from django.forms import model_to_dict
 from rest_framework.generics import RetrieveUpdateAPIView
 from bookingApp.Models.seats.seats import Seats
@@ -8,7 +9,7 @@ from bookingApp.Models.movie import Movie
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from bookingApp.Models.Booking.booking import Booking
 from movie_booking.Helpers.getImageHelper import getImageFile
 from rest_framework.decorators import permission_classes
 
@@ -28,7 +29,7 @@ class SeatsApiView(RetrieveUpdateAPIView):
             for s in seats:
                 data['Id'] = s.Id
                 data['movie_name']=s.days_Id.movie_Id.movie_name
-
+                data['movie_Id']= s.days_Id.movie_Id.Id
                 thumbnail = ''
                 if s.days_Id.movie_Id.thumbnail.name != '':
                     thumbnail = getImageFile(s.days_Id.movie_Id.thumbnail.name)
@@ -168,6 +169,13 @@ class SeatsApiView(RetrieveUpdateAPIView):
                     if seat_str == 'seat50':
                         query.seat50 = seat_status
                     query.save()
+                if "user_Id" in d.keys():
+                    user = getUserById(d['user_Id'])
+                if "movie_Id" in d.keys():
+                    movie = GetMovieById(d['movie_Id'])
+                datetime = d['datetime']
+                booking = Booking(user_Id=user, movie_Id=movie, datetime=datetime)
+                booking.save()
                 return JsonResponse({'data':"", "message":"Seat booked successfully", 'status': status.HTTP_200_OK})
             return JsonResponse({'data':"","message": "Some thing wrong", 'status': status.HTTP_400_BAD_REQUEST})
         except Exception as ex:

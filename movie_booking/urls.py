@@ -46,7 +46,7 @@ urlpatterns = [
     path('getTimes',DaysAPIViewVisitor.as_view()),
     path('getSeats/<int:pk>',SeatsApiView.as_view()),
     path('getSeats',SeatsApiView.as_view()),
-    path('booking',BookingAPI.as_view()),
+    # path('booking',BookingAPI.as_view()),
     path('booking/<int:pk>',BookingAPI.as_view()),
     path('forget',ForgetPassAPI.as_view()),
     path('updatepass',UpdatePassAPI.as_view())
