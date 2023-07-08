@@ -42,6 +42,9 @@ class MovieAPIView(RetrieveUpdateAPIView):
                 if int(d['category_Id']) == 2:
                     category_Id = d['category_Id']
                     category = 'Billboard'
+                if int(d['category_Id']) == 3:
+                    category_Id = d['category_Id']
+                    category = 'Soon Release'
             movie = Movie(movie_name=d['movie_name'], category=category,category_Id=category_Id, duration=d['duration'],
                           description=d['description'], genre=d['genre'], thumbnail=thumbnail)
             movie.save()
@@ -83,6 +86,9 @@ class MovieAPIView(RetrieveUpdateAPIView):
                     if int(d['category_Id']) == 2:
                         category_Id = d['category_Id']
                         category = 'Billboard'
+                    if int(d['category_Id']) == 3:
+                        category_Id = d['category_Id']
+                        category = 'Soon Release'
                     movie.category = category
                     movie.category_Id = category_Id
                 if 'duration' in d.keys():
