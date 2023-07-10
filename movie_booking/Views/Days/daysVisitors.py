@@ -1,5 +1,6 @@
 import json
 import base64
+import datetime
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
@@ -14,17 +15,26 @@ class DaysAPIViewVisitor(RetrieveUpdateAPIView):
             d = request.body
             # d = json.dumps(d)
             dic = json.loads(d)
-            times = []
+            data =[]
+
             if 'movie_Id' in dic.keys():
                 movie_Id = dic['movie_Id']
             if 'date' in dic.keys():
                 date = dic['date']
             m = Movie.objects.get(pk = movie_Id)
-            record = Days.objects.filter(movie_Id = m.Id, datetime__date=date).values_list('datetime', flat=True)
+            record = Days.objects.filter(movie_Id = m.Id, datetime__date=date)
             if record is not None:
                 for r in record:
-
-                    times.append(r.time())
-            return JsonResponse({'data': times,"message":"success", 'status': status.HTTP_200_OK})
+                    times = {}
+                    times['Id'] = r.Id
+                    # time = datetime.time(r.datetime)
+                    # times['time'] = r.datetime
+                    # t = dt.strptime(str(r.datetime), '%Y-%m-%d %H:%M:%S')
+                    # times['time']=datetime.datetime.fromtimestamp(r.datetime.strftime('%H:%M:%S'))
+                    # times.append(r.time())
+                    times['time'] = r.datetime.time()
+                    data.append(times)
+                    print(data)
+            return JsonResponse({'data': data,"message":"success", 'status': status.HTTP_200_OK})
         except Exception as ex:
             return JsonResponse({'data':"","message": ex, 'status': status.HTTP_500_INTERNAL_SERVER_ERROR})

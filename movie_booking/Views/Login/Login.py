@@ -23,53 +23,50 @@ from movie_booking.Helpers.User.User import getUserById, getUserByMail, UserExis
 
 
 @csrf_exempt
-@api_view(["POST"])
-@permission_classes([AllowAny])
+@require_http_methods(["POST"])
+# @permission_classes([AllowAny])
 def Login(request):
     try:
         x = request.body
-
         # print(x)
         # x = json.dumps(x)
-
         x = json.loads(x)
         # print(x)
-
         email = x['Email']
-
         password = x['Password']
-        # print(email)
-        # print(password)
-
+        print(email)
+        print(password)
         # password = PasswordManager.encrypt(password)
-
         user = authenticate(Email=email, password=password)
-        # print(user,"User")
-
-        if user and user.IsDeleted == False and user.IsActive == True:
-            try:
-                user.id = user.Id
-                payload = get_token_for_user(user)
-                # token = jwt.encode(payload, settings.SECRET_KEY)
-
-                user_details = {}
-
-
-                user_logged_in.send(sender=user.__class__,
-                                    request=request, user=user)
-                user_details["user"] = UserSerializer(user).data
-                user_details["user"]["Token"] = payload['access']
-                return Response({"data": user_details, "message": "Login successfully", "status": status.HTTP_200_OK})
-            except Exception as e:
-                return Response({"data":"","message":str(e), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(user, "User")
+        if user:
+            if user.IsDeleted == False and user.IsActive == True:
+                try:
+                    user.id = user.Id
+                    payload = get_token_for_user(user)
+                    # token = jwt.encode(payload, settings.SECRET_KEY)
+                    user_details = {}
+                    user_logged_in.send(sender=user.__class__,
+                                        request=request, user=user)
+                    user_details["user"] = UserSerializer(user).data
+                    user_details["user"]["Token"] = payload['access']
+                    return JsonResponse(
+                        {"data": user_details, "message": "Login successfully", "status": status.HTTP_200_OK})
+                except Exception as e:
+                    return JsonResponse({"data": "", "message": str(e), "status": 500},
+                                        status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                res = 'can not authenticate with the given credentials or the account has been deactivated'
+            return JsonResponse({"data": "", "message": str(res), "status": status.HTTP_403_FORBIDDEN},
+                                status=status.HTTP_403_FORBIDDEN)
         else:
             res = 'can not authenticate with the given credentials or the account has been deactivated'
-            return Response({"data":"","message":str(res), "status": status.HTTP_403_FORBIDDEN}, status=status.HTTP_403_FORBIDDEN)
-
-
+            return JsonResponse({"data": "", "message": str(res), "status": status.HTTP_403_FORBIDDEN},
+                                status=status.HTTP_403_FORBIDDEN)
     except KeyError:
         res = 'please provide a email and a password'
-        return Response({"data":"" ,"message":str(res), "status": 500}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return JsonResponse({"data": "", "message": str(res), "status": 500},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class TokenVerify(TokenViewBase):
@@ -80,8 +77,6 @@ class TokenVerify(TokenViewBase):
         # authenitcate() verifies and decode the token
         # if token is invalid, it raises an exception and returns 401
         return verify_token(request)
-
-
 
 
 class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
@@ -102,7 +97,6 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
     def put(self, request, *args, **kwargs):
-
         serializer_data = request.data.get('user', {})
 
         serializer = UserSerializer(

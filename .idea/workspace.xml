@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d204d63e-61a4-452d-96d7-542cda6fe892" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Login/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Login/Login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +31,9 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$USER_HOME$/LittleLemon" />
   </component>
   <component name="RunManager">
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -72,7 +74,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movie_booking/Views/Login/Login.py</url>
-          <line>27</line>
+          <line>24</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -99,6 +101,11 @@
           <url>file://$PROJECT_DIR$/movie_booking/Views/Users/Users.py</url>
           <line>17</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py</url>
+          <line>23</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
