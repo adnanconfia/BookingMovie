@@ -51,7 +51,9 @@ class User(CreateAPIView):
                         if('UserName' in dic.keys()):
                             UserName = dic['UserName']
                         if('PhoneNumber' in dic.keys()):
-                                PhoneNumber = dic['PhoneNumber']
+                            PhoneNumber = dic['PhoneNumber']
+                        if('DOB' in dic.keys()):
+                            DOB = dic['DOB']
                         if('CI' in dic.keys()):
                             CI = dic['CI']
                         if('Gender' in dic.keys()):
@@ -85,9 +87,10 @@ class User(CreateAPIView):
                         payload = {"sub": data['Id'], "email": data['Email'], "iat": 1516239022}
                         secret_key = "jdkdeomd209303kdks9kdk9md93"
                         jwt_token = jwt.encode(payload, secret_key, algorithm='HS256')
-                        print(jwt_token)
+                        data['token'] = jwt_token
+                        # print(jwt_token)
                         return Response(
-                            {"data": data,"message":"success", "status": status.HTTP_200_OK,"token":jwt_token},
+                            {"data": data,"message":"success", "status": status.HTTP_200_OK},
                             status=status.HTTP_200_OK)
 
                 else:
@@ -125,8 +128,8 @@ class User(CreateAPIView):
                     if ('PhoneNumber' in dic.keys()):
                         PhoneNumber = dic['PhoneNumber']
                         user.PhoneNumber = PhoneNumber
-                    if ('DOB' in dic.keys()):
-                        DOB = parse_date(dic['DOB'])
+                    if('DOB' in dic.keys()):
+                        DOB = dic['DOB']
                         user.DOB = DOB
                     if ('Gender' in dic.keys()):
                         Gender = dic['Gender']
@@ -136,13 +139,13 @@ class User(CreateAPIView):
                     if("IsDeleted" in dic.keys()):
                         user.IsDeleted = dic['IsDeleted']
                         if(dic['IsDeleted'] ==True):
-                            user.Deletion_Time = datetime.datetime.utcnow()
+                            user.Deletion_Time = datetime.now()
                         else:
                             user.Deletion_Time = None
                     user.save()
                     data = UserSerializer(user).data
 
-                    return Response({"data": data,"message":"User created successfully", "status": status.HTTP_200_OK},
+                    return Response({"data": data,"message":"User update successfully", "status": status.HTTP_200_OK},
                                     status=status.HTTP_200_OK)
         except Exception as ex:
             return Response({"data":"","message": str(ex), "status": status.HTTP_500_INTERNAL_SERVER_ERROR},

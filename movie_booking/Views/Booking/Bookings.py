@@ -29,9 +29,15 @@ class BookingAPI(RetrieveUpdateAPIView):
     def get(self,request,pk):
         try:
             user_Id = str(pk).replace('"', '')
+            d = request.data
+            d = json.dumps(d)
+            dic = json.loads(d)
+            movie_Id = dic['movie_Id']
             data = []
+
             booking_details = {}
-            record = Booking.objects.select_related("user_Id").filter(user_Id=user_Id)
+            seat_no = []
+            record = Booking.objects.select_related("user_Id").filter(user_Id=user_Id,movie_Id=movie_Id)
             for r in record:
                 booking_details['movie_name'] = r.movie_Id.movie_name
                 thumbnail = ""
@@ -39,6 +45,8 @@ class BookingAPI(RetrieveUpdateAPIView):
                     thumbnail = getImageFile(r.movie_Id.thumbnail.name)
                 booking_details['thumbnail'] = thumbnail
                 booking_details['datetime'] = r.datetime
+                seat_no.append(r.seat_no);
+            booking_details['seat_no']= seat_no
             data.append(booking_details)
             return JsonResponse({"data": data,"message":"success", "status": status.HTTP_200_OK})
         except Exception as ex:

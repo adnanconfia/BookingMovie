@@ -30,6 +30,7 @@ from movie_booking.Views.Seats.Seats import SeatsApiView
 from movie_booking.Views.Booking.Bookings import BookingAPI
 from movie_booking.Views.ForgetPassword.ForgetPassword import ForgetPassAPI
 from movie_booking.Views.ForgetPassword.UpdatePassword import UpdatePassAPI
+from movie_booking.Views.Users.UserAdmin import UserAdmin,GetUserById
 
 urlpatterns = [
 
@@ -37,6 +38,7 @@ urlpatterns = [
     path('verify/token', Login.Login),
     path('login/',Login.UserRetrieveUpdateAPIView.as_view()),
     path('user/create', User.as_view()),
+    path('users/<int:pk>', GetUserById.as_view()),
     path('movie',MovieAPIView.as_view()),
     path('datetime',DaysAPIView.as_view()),
     path('getdatebyid/<int:pk>',GetDaysById.as_view()),
@@ -49,6 +51,7 @@ urlpatterns = [
     # path('booking',BookingAPI.as_view()),
     path('booking/<int:pk>',BookingAPI.as_view()),
     path('forget',ForgetPassAPI.as_view()),
-    path('updatepass',UpdatePassAPI.as_view())
+    path('updatepass',UpdatePassAPI.as_view()),
+    path('users',UserAdmin.as_view())
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

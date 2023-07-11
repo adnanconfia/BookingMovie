@@ -9,5 +9,6 @@ class Booking(models.Model):
     user_Id = models.ForeignKey(User, on_delete=models.CASCADE)
     movie_Id = models.ForeignKey(Movie, on_delete=models.CASCADE)
     datetime = models.TextField(null=True, blank=True)
+    seat_no = models.TextField(null=True,blank=True)
     isDeleted = models.BooleanField(default=False)
     creation_date = models.DateTimeField(default=timezone.now)

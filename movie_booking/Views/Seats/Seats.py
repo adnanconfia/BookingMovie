@@ -169,13 +169,13 @@ class SeatsApiView(RetrieveUpdateAPIView):
                     if seat_str == 'seat50':
                         query.seat50 = seat_status
                     query.save()
-                if "user_Id" in d.keys():
-                    user = getUserById(d['user_Id'])
-                if "movie_Id" in d.keys():
-                    movie = GetMovieById(d['movie_Id'])
-                datetime = d['datetime']
-                booking = Booking(user_Id=user, movie_Id=movie, datetime=datetime)
-                booking.save()
+                    if "user_Id" in d.keys():
+                        user = getUserById(d['user_Id'])
+                    if "movie_Id" in d.keys():
+                        movie = GetMovieById(d['movie_Id'])
+                    datetime = d['datetime']
+                    booking = Booking(user_Id=user, movie_Id=movie, datetime=datetime,seat_no=s['seat_No'])
+                    booking.save()
                 return JsonResponse({'data':"", "message":"Seat booked successfully", 'status': status.HTTP_200_OK})
             return JsonResponse({'data':"","message": "Some thing wrong", 'status': status.HTTP_400_BAD_REQUEST})
         except Exception as ex:

@@ -36,6 +36,7 @@ class ForgetPassAPI(RetrieveUpdateAPIView):
                     body = "Hello,Your OTP is "+str(otp)+" Thank You"
                     sender = settings.EMAIL_HOST_USER
                     recipients = dic['email']
+                    # recipients = "hr"
                     password = settings.EMAIL_HOST_PASSWORD
 
                     send_email(subject,body,sender,recipients,password,otp)
@@ -54,7 +55,7 @@ def send_email(subject,body, sender, recipients, password,otp):
     # assert isinstance(recipients,list)
     msg=MIMEMultipart('alternative')
     msg['From']=sender
-    msg['To']=", ".join(recipients)
+    msg['To']=recipients
     msg['Subject']=subject
     txt_part=MIMEText(body,'plain')
     msg.attach(txt_part)
