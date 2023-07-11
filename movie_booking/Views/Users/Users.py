@@ -1,5 +1,6 @@
 import json
 import requests
+from django.contrib.auth import authenticate
 from datetime import datetime
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
@@ -9,6 +10,8 @@ from bookingApp.Models.users.user import User as UserModel
 from ...Helpers.User.User import UserExistsByEmail, getUserById, getUserByMail, getAllUsers
 from bookingApp.Models.users.userSerializer import UserSerializer
 import jwt
+from django.http import JsonResponse
+from movie_booking.Helpers.Auth.token import get_token_for_user
 from django.utils.dateparse import parse_date
 class User(CreateAPIView):
     permission_classes = [AllowAny,]
@@ -23,7 +26,7 @@ class User(CreateAPIView):
             if(id==0):
                 if 'Email' in dic.keys():
                     if UserExistsByEmail(dic['Email']):
-                        return Response(
+                        return JsonResponse(
                             {"data":"","message": "user with email: '"+ dic['Email']+ "' already exists", "status": status.HTTP_400_BAD_REQUEST},
                             status=status.HTTP_400_BAD_REQUEST)
                     else:
@@ -31,7 +34,7 @@ class User(CreateAPIView):
                         if("Password" in dic.keys()):
                             password = dic['Password']
                         else:
-                            return Response(
+                            return JsonResponse(
                                 {"data":"","message": "Password is required",
                                  "status": status.HTTP_400_BAD_REQUEST},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -84,23 +87,25 @@ class User(CreateAPIView):
                         # # Make a POST request with the credentials
                         # response = requests.post(url, json=credentials)
                         # print(auth_token = response.json()["auth_token"])
-                        payload = {"sub": data['Id'], "email": data['Email'], "iat": 1516239022}
-                        secret_key = "jdkdeomd209303kdks9kdk9md93"
-                        jwt_token = jwt.encode(payload, secret_key, algorithm='HS256')
-                        data['token'] = jwt_token
-                        # print(jwt_token)
-                        return Response(
+                        # payload = {"sub": data['Id'], "email": data['Email'], "iat": 1516239022}
+                        # secret_key = "jdkdeomd209303kdks9kdk9md93"
+                        # jwt_token = jwt.encode(payload, secret_key, algorithm='HS256')
+                        user = authenticate(Email=data['Email'], password=password)
+                        user.id = user.Id
+                        payload = get_token_for_user(user)
+                        data['Token'] = payload['access']
+                        return JsonResponse(
                             {"data": data,"message":"success", "status": status.HTTP_200_OK},
                             status=status.HTTP_200_OK)
 
                 else:
-                    return Response(
+                    return JsonResponse(
                         {"data":"","message": "Email is required", "status": status.HTTP_400_BAD_REQUEST},
                         status=status.HTTP_400_BAD_REQUEST)
             else:
                 user = getUserById(id)
                 if (user is None):
-                    return Response(
+                    return JsonResponse(
                         {"data":"","message": "User doesn't exists",
                          "status": status.HTTP_404_NOT_FOUND},
                         status=status.HTTP_404_NOT_FOUND)
@@ -109,7 +114,7 @@ class User(CreateAPIView):
                         checkUser = getUserByMail(dic['Email'])
                         if (checkUser is not None):
                             if checkUser.Id != id:
-                                return Response({"data":"","message": "User with email : '" + str(dic['Email']) + "' already exists",
+                                return JsonResponse({"data":"","message": "User with email : '" + str(dic['Email']) + "' already exists",
                                                  "status": status.HTTP_226_IM_USED}, status=status.HTTP_226_IM_USED)
                         else:
                             user.Email = dic['Email']
@@ -145,8 +150,8 @@ class User(CreateAPIView):
                     user.save()
                     data = UserSerializer(user).data
 
-                    return Response({"data": data,"message":"User update successfully", "status": status.HTTP_200_OK},
+                    return JsonResponse({"data": data,"message":"User update successfully", "status": status.HTTP_200_OK},
                                     status=status.HTTP_200_OK)
         except Exception as ex:
-            return Response({"data":"","message": str(ex), "status": status.HTTP_500_INTERNAL_SERVER_ERROR},
+            return JsonResponse({"data":"","message": str(ex), "status": status.HTTP_500_INTERNAL_SERVER_ERROR},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)

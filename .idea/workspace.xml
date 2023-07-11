@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d204d63e-61a4-452d-96d7-542cda6fe892" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/movie_booking/Views/Users/UserAdmin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bookingApp/Models/Booking/booking.py" beforeDir="false" afterPath="$PROJECT_DIR$/bookingApp/Models/Booking/booking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/ForgetPassword/ForgetPassword.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Seats/Seats.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +80,16 @@
           <url>file://$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py</url>
           <line>23</line>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/movie_booking/Views/Login/Login.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/movie_booking/Views/Users/Users.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
