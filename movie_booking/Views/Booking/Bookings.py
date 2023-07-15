@@ -29,15 +29,15 @@ class BookingAPI(RetrieveUpdateAPIView):
     def get(self,request,pk):
         try:
             user_Id = str(pk).replace('"', '')
-            d = request.data
-            d = json.dumps(d)
-            dic = json.loads(d)
-            movie_Id = dic['movie_Id']
+            # d = request.data
+            # d = json.dumps(d)
+            # dic = json.loads(d)
+            # movie_Id = dic['movie_Id']
             data = []
 
             booking_details = {}
             seat_no = []
-            record = Booking.objects.select_related("user_Id").filter(user_Id=user_Id,movie_Id=movie_Id)
+            record = Booking.objects.select_related("user_Id").filter(user_Id=user_Id,isDeleted=False)
             for r in record:
                 booking_details['movie_name'] = r.movie_Id.movie_name
                 thumbnail = ""

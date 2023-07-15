@@ -31,7 +31,7 @@ from movie_booking.Views.Booking.Bookings import BookingAPI
 from movie_booking.Views.ForgetPassword.ForgetPassword import ForgetPassAPI
 from movie_booking.Views.ForgetPassword.UpdatePassword import UpdatePassAPI
 from movie_booking.Views.Users.UserAdmin import UserAdmin,GetUserById
-
+from movie_booking.Views.Tickets.Tickets import TicketAPI
 urlpatterns = [
 
     path('migrate',addData),
@@ -52,6 +52,7 @@ urlpatterns = [
     path('booking/<int:pk>',BookingAPI.as_view()),
     path('forget',ForgetPassAPI.as_view()),
     path('updatepass',UpdatePassAPI.as_view()),
-    path('users',UserAdmin.as_view())
+    path('users',UserAdmin.as_view()),
+    path('usertickets/<int:pk>',TicketAPI.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d204d63e-61a4-452d-96d7-542cda6fe892" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/movie_booking/Views/Tickets/Tickets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Users/Users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/Views/Booking/Bookings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie_booking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/movie_booking/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,11 +82,6 @@
           <url>file://$PROJECT_DIR$/movie_booking/Views/Days/daysVisitors.py</url>
           <line>23</line>
           <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/movie_booking/Views/Login/Login.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/movie_booking/Views/Users/Users.py</url>
